@@ -1,0 +1,49 @@
+{% load static %}
+<!-- nav bar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home'  %}">
+        <img src="{% static 'Feed/images/pollicon.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+        Poll App</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <!-- <a> hyperlinks -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            {% if request.get_full_path == '/' %}
+              <a class="nav-link active" aria-current="page" href="{% url 'home'  %}">Home</a>
+            {% else %}
+              <a class="nav-link" aria-current="page" href="{% url 'home'  %}">Home</a>
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            {% if request.get_full_path == '/Poll/createPoll/' %}
+              <a class="nav-link active" href="{% url 'createPoll'  %}">Create Poll</a>
+            {% else %}
+              <a class="nav-link" aria-current="page" href="{% url 'createPoll'  %}">Create Poll</a>
+            {% endif %}
+          </li>
+        </ul>
+        <!-- search bar -->
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Enter a Poll link here" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form><!-- icons -->
+        <div class="icons nav-item d-flex">
+          <!-- mode icon -->
+          <button id="modeButton" class="nav-link" title="Toggle mode" type="button"><img src="{% static 'Feed/images/dayAndNight.png' %}" alt="dayORnight"></button>
+          <!-- account icon -->
+          <a class="nav-link" href="#account" title="Manage account">
+            {% if User.icon %}
+              <img src="/media/{{ User.icon }}" alt="account">
+            {% else %}
+              <img src="{% static 'Feed/images/defaultUser.png' %}" alt="account">
+            {% endif %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>

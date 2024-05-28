@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %} Create Poll | Poll App {% endblock title %}
+
+{% block body %}
+    {% include "Feed/navbar.html" %}
+{% endblock body %}
+
+{% block mainBody %}
+    <div id="mainBody" class="container">
+        <form >
+            <!-- Poll text input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+                <input type="text" id="pollText1" class="form-control" name="username" required/>
+                <label class="form-label" for="pollText1" >Poll text</label>
+            </div>
+
+        </form>
+    </div>
+{% endblock mainBody %}
