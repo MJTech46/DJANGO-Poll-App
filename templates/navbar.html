@@ -36,7 +36,7 @@
           <!-- mode icon -->
           <button id="modeButton" class="nav-link" title="Toggle mode" type="button"><img src="{% static 'Feed/images/dayAndNight.png' %}" alt="dayORnight"></button>
           <!-- account icon -->
-          <a class="nav-link" href="#account" title="Manage account">
+          <a class="nav-link" href="{% url 'account'  %}" title="Manage account">
             {% if User.icon %}
               <img src="/media/{{ User.icon }}" alt="account">
             {% else %}

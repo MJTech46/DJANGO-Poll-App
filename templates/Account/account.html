@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Manage Account | Poll App{% endblock title %}
+
+{% block body %}
+    {% include "navbar.html" %}
+{% endblock body %}
+
+{% block mainBody %}
+    <!-- main part -->
+    <div class="container p-5 border border-2 rounded-3">
+        <!-- name and icon div -->
+        <div class="container">
+            <div class="container d-flex justify-content-center gap-4">
+                {% if User.icon %}
+                <img src="/media/{{ User.icon }}" alt="account" height="100" width="100">
+                {% else %}
+                <img src="{% static 'Feed/images/defaultUser.png' %}" alt="account" height="100" width="100">
+                {% endif %}
+                <div>
+                    <h1>Full Name</h1>
+                    <h4>@username</h4>
+                </div>
+            </div>
+        </div>
+        <!-- statistics -->
+        <div class="container row border-bottom border-2 pt-5 text-center">
+            <div class="col border-end border-2">
+                <h4>Polled</h4>
+                <h4>22</h4>
+            </div>
+            <div class="col">
+                <h4>Poll</h4>
+                <h4>5</h4>
+            </div>
+        </div>
+        <!-- actions -->
+        <div class="container pt-3">
+            <h4>Actions:</h4>
+            <div class="d-flex align-content-between flex-wrap gap-4 gap-lg-5 pt-2">
+                <!-- icon 1 -->
+                <div class=" d-flex justify-content-center gap-1">
+                    <img src="{% static 'Account/images/tools.png' %}" alt="account" height="40" width="40">
+                    <div>
+                        <h4>username</h4>
+                    </div>
+                </div>
+                <!-- icon 1 -->
+                <div class=" d-flex justify-content-center gap-1">
+                    <img src="{% static 'Account/images/tools.png' %}" alt="account" height="40" width="40">
+                    <div>
+                        <h4>username</h4>
+                    </div>
+                </div>
+                <!-- icon 1 -->
+                <div class=" d-flex justify-content-center gap-1">
+                    <img src="{% static 'Account/images/tools.png' %}" alt="account" height="40" width="40">
+                    <div>
+                        <h4>username</h4>
+                    </div>
+                </div>
+                <!-- icon 1 -->
+                <div class=" d-flex justify-content-center gap-1">
+                    <img src="{% static 'Account/images/tools.png' %}" alt="account" height="40" width="40">
+                    <div>
+                        <h4>username</h4>
+                    </div>
+                </div>
+                <!-- icon 1 -->
+                <div class=" d-flex justify-content-center gap-1">
+                    <img src="{% static 'Account/images/tools.png' %}" alt="account" height="40" width="40">
+                    <div>
+                        <h4>username</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- logout button -->
+        <div class="container pt-5 d-grid">
+            <button class="btn btn-danger">Sign Out</button>
+        </div>
+    </div>
+{% endblock mainBody %}

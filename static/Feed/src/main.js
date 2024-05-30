@@ -1,16 +1,18 @@
-// Toggling the theme
+// Toggling the theme using button
 const modeButton = document.getElementById("modeButton");
-const htmlElement = document.querySelector("html");
+
 modeButton.addEventListener("click", () => {
     if (htmlElement.dataset.bsTheme === "light") {
-        htmlElement.dataset.bsTheme = "dark";
+        htmlElement.dataset.bsTheme = "dark";       // htmlElement already declared in theme.js
+        localStorage.setItem("themeColor", "dark"); // localStorage already declared in theme.js
     } else {
         htmlElement.dataset.bsTheme = "light";
+        localStorage.setItem("themeColor", "light");
     }
 });
 
 //Adding accurate padding
 const navElement = document.querySelector("nav"); 
-const mainBodyElement = document.getElementById("mainBody");
+const ignoreNavbarDiv = document.getElementById("ignoreNavbar");
 const navHeight = navElement.offsetHeight;
-mainBodyElement.style.paddingTop = `${navHeight + 15}px`;
+ignoreNavbarDiv.style.marginTop = `${navHeight + 15}px`;
