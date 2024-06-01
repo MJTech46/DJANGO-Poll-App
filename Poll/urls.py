@@ -20,5 +20,8 @@ from . import views
 
 
 urlpatterns = [
-    path('createPoll/',views.createPoll, name="createPoll")
+    path('createPoll/',views.createPoll, name="createPoll"),
+    path('<str:uuid>',views.results, name="viewpoll"),
+    path('results/',views.results, name="results"),
+    path('results/<str:uuid>',views.results, name="pollResults"),
 ]

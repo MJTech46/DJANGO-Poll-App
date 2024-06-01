@@ -10,6 +10,7 @@ addOptionBtn.addEventListener("click", () => {
     // Create a new input element
     const newInput = document.createElement("input");
     newInput.id = `answerOptions${optionCounter + 1}`; // Increment the ID for each new option
+    newInput.name = `answerOptions${optionCounter + 1}`;
     newInput.type = "text";
     newInput.className = "form-control mb-3";
     newInput.placeholder = `Option ${optionCounter + 1}`;

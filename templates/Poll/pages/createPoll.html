@@ -13,27 +13,28 @@
         <h1>Poll Maker</h1>
         <h4>Create polls and get instent feedback in real time.</h4>
         <div class="container text-start mt-5 border border-1 rounded-3 p-3">
-            <form action="">
+            <form action="" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
                 <div class="border-bottom border-4">
                     <!-- question -->
                     <div class="mb-3">
                         <label for="pollText" class="col-form-label-lg">Title</label>
-                        <input id="pollText" type="text" class="form-control" placeholder="Type your question here" required>
+                        <input id="pollText" name="pollText" type="text" class="form-control" placeholder="Type your question here" required>
                     </div>
                     <!-- answers -->
                     <div class="mb-3" id="answers">
                         <input type="number" name="optionsCount" id="optionsCount" hidden>
                         <label for="answerOptions1" class="col-form-label-lg">Answers Options</label>
-                        <input id="answerOptions1" type="text" class="form-control mb-3" placeholder="Option 1" required>
-                        <input id="answerOptions2" type="text" class="form-control mb-3" placeholder="Option 2" required>
+                        <input id="answerOptions1" name="answerOptions1" type="text" class="form-control mb-3" placeholder="Option 1" required>
+                        <input id="answerOptions2" name="answerOptions2" type="text" class="form-control mb-3" placeholder="Option 2" required>
                         <div id="options"></div>
                         <button type="button" class="btn btn-info" id="addOption">Add option</button>
                         <button type="button" class="btn btn-danger" id="deleteOption" hidden>Delete last option</button>
                     </div>
                 </div>
-                <!-- logout button -->
+                <!-- submit button -->
                 <div class="d-grid gap-2 col-6 mx-auto pt-3">
-                    <button class="btn btn-primary" type="button">Create Poll</button>
+                    <button class="btn btn-primary" type="submit">Create Poll</button>
                 </div>
             </form>
         </div>
