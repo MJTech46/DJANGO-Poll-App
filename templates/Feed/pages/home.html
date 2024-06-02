@@ -29,13 +29,13 @@
                     <!-- Question part -->
                     <h4 class="pt-2">{{ poll.poll_text }}</h4>
                     <!-- Poll part -->
-                    <form action="">
+                    <form id="{{ poll.uuid }}" action="{% url 'poll' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input name="uuid" type="hidden" value="{{ poll.uuid }}" hidden>
                     <div class="pt-3 pb-3">
                         {% for option in poll.options.all %}
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioBtn" id="flexRadioDefault{{ option.pk }}" value="{{ option.pk }}">
+                                <input class="form-check-input" type="radio" name="RadioBtn" id="flexRadioDefault{{ option.pk }}" value="{{ option.pk }}" required>
                                 <label class="form-check-label" for="flexRadioDefault{{ option.pk }}">
                                     {{ option.option_text }}
                                 </label>
@@ -44,23 +44,20 @@
                     </div>
                     <div class="d-flex pb-4 justify-content-evenly gap-2">
                         <button type="submit" class="btn btn-primary col-5 ">
-                        <span><i class="fas fa-vote-yea"></i></span>
-                        Vote
+                            <span><i class="fas fa-vote-yea"></i></span>
+                            Vote
                         </button>
                         <a href="{% url 'results' %}{{ poll.uuid }}" type="button" class="btn btn-secondary col-auto col-lg-2">
-                        <span><i class="fas fa-poll-h"></i></span>
-                        Results
+                            <span><i class="fas fa-poll-h"></i></span>
+                            Results
                         </a>
                         <button type="button" onclick="shareLink('{{ poll.poll_text }}', '/Poll/{{ poll.uuid }}')" class="btn btn-secondary col-auto col-lg-2">
-                        <span><i class="fas fa-share"></i></span>
-                        Share
+                            <span><i class="fas fa-share"></i></span>
+                            Share
                         </button>
                     </div>
+                    <div id="alert-{{ poll.uuid }}"></div>
                     </form>
-                    <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-                    Your response was recorded successfully.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
                 </div>
             </div>
         {% endfor %}
@@ -68,5 +65,5 @@
 {% endblock mainBody %}
 
 {% block script %}
-
+    <script type="text/javascript" src="{% static 'Feed/src/customFormPost.js' %}"></script>
 {% endblock script %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from .models import Option, Poll
 
 # Create your views here.
@@ -37,3 +37,10 @@ def results(request: HttpRequest, uuid=None):
 
 def vewPoll(request: HttpRequest, uuid=None):
     return HttpResponse(f"Poll of '{uuid}'")  
+
+def poll(request: HttpRequest):
+    if request.method == "POST":
+        uuid = request.POST.get("uuid")
+        radioBtn = request.POST.get("RadioBtn")
+        print(f"uuid:{uuid}\noption pk:{radioBtn}")
+        return JsonResponse({'status':200})

@@ -39,7 +39,9 @@
             </form>
         </div>
     </div>
-
-    <!-- for button functionality -->
-    <script type="text/javascript" src="{% static 'Poll/createPoll.js' %}"></script>
 {% endblock mainBody %}
+
+<!-- for (add/delete) button functionality -->
+{% block script %}
+    <script type="text/javascript" src="{% static 'Poll/createPoll.js' %}"></script>
+{% endblock script %}
