@@ -29,7 +29,7 @@
                     <!-- Question part -->
                     <h4 class="pt-2">{{ poll.poll_text }}</h4>
                     <!-- Poll part -->
-                    <form id="{{ poll.uuid }}" action="{% url 'poll' %}" enctype="multipart/form-data">
+                    <form id="{{ poll.uuid }}" action="{% url 'pollPost' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input name="uuid" type="hidden" value="{{ poll.uuid }}" hidden>
                     <div class="pt-3 pb-3">
@@ -47,11 +47,11 @@
                             <span><i class="fas fa-vote-yea"></i></span>
                             Vote
                         </button>
-                        <a href="{% url 'results' %}{{ poll.uuid }}" type="button" class="btn btn-secondary col-auto col-lg-2">
+                        <a href="{% url 'pollResultsURL' %}{{ poll.uuid }}" type="button" class="btn btn-secondary col-auto col-lg-2">
                             <span><i class="fas fa-poll-h"></i></span>
                             Results
                         </a>
-                        <button type="button" onclick="shareLink('{{ poll.poll_text }}', '/Poll/{{ poll.uuid }}')" class="btn btn-secondary col-auto col-lg-2">
+                        <button type="button" onclick="shareLink('{{ poll.poll_text }}', `{% url 'viewPollURL' %}{{ poll.uuid }}`)" class="btn btn-secondary col-auto col-lg-2">
                             <span><i class="fas fa-share"></i></span>
                             Share
                         </button>
@@ -62,6 +62,19 @@
             </div>
         {% endfor %}
     </div>
+    {% if polls %}
+        <div class="container">
+            <div class="alert alert-info text-center" role="alert">
+                It seems like you've reached the end. <a href="{% url 'home'  %}" class="alert-link">Click here</a> to refresh this page
+            </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="alert alert-info text-center" role="alert">
+                You have responded to all current polls. <a href="{% url 'createPoll'  %}" class="alert-link">Click here</a> to contribute your own post.
+            </div>
+        </div>
+    {% endif %}
 {% endblock mainBody %}
 
 {% block script %}

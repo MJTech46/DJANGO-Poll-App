@@ -10,7 +10,7 @@ def createPoll(request: HttpRequest):
             'request' : request,
             'User' : request.user,
         }
-        return render(request, "Poll/pages/createPoll.html", context=context)
+        return render(request, "Poll/createPoll.html", context=context)
     
     if request.method == "POST":
         #print(request.POST)
@@ -38,7 +38,7 @@ def results(request: HttpRequest, uuid=None):
 def vewPoll(request: HttpRequest, uuid=None):
     return HttpResponse(f"Poll of '{uuid}'")  
 
-def poll(request: HttpRequest):
+def pollPost(request: HttpRequest):
     if request.method == "POST":
         uuid = request.POST.get("uuid")
         radioBtn = request.POST.get("RadioBtn")

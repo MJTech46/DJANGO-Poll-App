@@ -21,8 +21,9 @@ from . import views
 
 urlpatterns = [
     path('createPoll/',views.createPoll, name="createPoll"),
-    path('viewpoll/<str:uuid>',views.results, name="viewPoll"),
-    path('results/',views.results, name="results"),
+    path('viewPoll/',views.results, name="viewPollURL"),   #for url tag to work
+    path('viewPoll/<str:uuid>',views.results, name="viewPoll"),
+    path('results/',views.results, name="pollResultsURL"),     #for url tag to work
     path('results/<str:uuid>',views.results, name="pollResults"),
-    path('post/',views.poll, name="poll"),
+    path('post/',views.pollPost, name="pollPost"),
 ]

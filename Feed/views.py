@@ -9,4 +9,4 @@ def home(request):
         'User' : request.user,
         'polls' : polls,
     }
-    return render(request,'Feed/pages/home.html', context=context)
+    return render(request,'Feed/home.html', context=context)
