@@ -20,20 +20,25 @@
                 <img src="{% static 'Feed/images/defaultUser.png' %}" alt="account" height="100" width="100">
                 {% endif %}
                 <div>
-                    <h1>Full Name</h1>
-                    <h4>@username</h4>
+                    {% if User.username %}
+                        <h1>{{ User.first_name }} {{ User.last_name }}</h1>
+                        <h4>@{{ User.username }}</h4>
+                    {% else %}<!--  this is for testing only -->
+                        <h1>Full Name</h1>
+                        <h4>@username</h4>
+                    {% endif %}
                 </div>
             </div>
         </div>
         <!-- statistics -->
         <div class="container row border-bottom border-2 pt-5 text-center">
             <div class="col border-end border-2">
-                <h4>Polled</h4>
-                <h4>22</h4>
+                <h4>Posted Polls</h4>
+                <h4>5</h4>
             </div>
             <div class="col">
-                <h4>Poll</h4>
-                <h4>5</h4>
+                <h4>Voted Polls</h4>
+                <h4>22</h4>
             </div>
         </div>
         <!-- actions -->
@@ -41,45 +46,66 @@
             <h4>Actions:</h4>
             <div class="d-flex align-content-between flex-wrap gap-4 gap-lg-5 pt-2">
                 <!-- icon 1 -->
-                <div class=" d-flex justify-content-center gap-1">
-                    <img src="{% static 'Account/images/tools.png' %}" alt="account" height="40" width="40">
-                    <div>
-                        <h4>username</h4>
-                    </div>
+                <div>
+                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                        <img src="{% static 'Account/images/eye.png' %}" alt="eye" height="40" width="40">
+                        <div class="align-content-center">
+                            <h4 class="text-primary-emphasis">View created polls</h4>
+                        </div>
+                    </a>
                 </div>
-                <!-- icon 1 -->
-                <div class=" d-flex justify-content-center gap-1">
-                    <img src="{% static 'Account/images/tools.png' %}" alt="account" height="40" width="40">
-                    <div>
-                        <h4>username</h4>
-                    </div>
+                <!-- icon 2 -->
+                <div>
+                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                        <img src="{% static 'Account/images/eye.png' %}" alt="eye" height="40" width="40">
+                        <div class="align-content-center">
+                            <h4 class="text-primary-emphasis">View voted polls</h4>
+                        </div>
+                    </a>
                 </div>
-                <!-- icon 1 -->
-                <div class=" d-flex justify-content-center gap-1">
-                    <img src="{% static 'Account/images/tools.png' %}" alt="account" height="40" width="40">
-                    <div>
-                        <h4>username</h4>
-                    </div>
+                <!-- icon 3 -->
+                <div>
+                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                        <img src="{% static 'Account/images/undo.png' %}" alt="undo" height="40" width="40">
+                        <div class="align-content-center">
+                            <h4 class="text-warning-emphasis">Undo polls participation</h4>
+                        </div>
+                    </a>
                 </div>
-                <!-- icon 1 -->
-                <div class=" d-flex justify-content-center gap-1">
-                    <img src="{% static 'Account/images/tools.png' %}" alt="account" height="40" width="40">
-                    <div>
-                        <h4>username</h4>
-                    </div>
+                <!-- icon 4 -->
+                <div>
+                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                        <img src="{% static 'Account/images/trash-can.png' %}" alt="trash-can" height="40" width="40">
+                        <div class="align-content-center">
+                            <h4 class="text-danger-emphasis">Delete posted poll</h4>
+                        </div>
+                    </a>
                 </div>
-                <!-- icon 1 -->
-                <div class=" d-flex justify-content-center gap-1">
-                    <img src="{% static 'Account/images/tools.png' %}" alt="account" height="40" width="40">
-                    <div>
-                        <h4>username</h4>
-                    </div>
+                <!-- icon 5 -->
+                <div>
+                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                        <img src="{% static 'Account/images/trash-can.png' %}" alt="trash-can" height="40" width="40">
+                        <div class="align-content-center">
+                            <h4 class="text-danger-emphasis">Delete account</h4>
+                        </div>
+                    </a>
                 </div>
+                {% if User.is_superuser %}
+                    <!-- icon 6 -->
+                    <div>
+                        <a href="/admin/" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                            <img src="{% static 'Account/images/key.png' %}" alt="key" height="40" width="40">
+                            <div class="align-content-center">
+                                <h4 class="text-info-emphasis">Mange admin pages</h4>
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <!-- logout button -->
         <div class="container pt-5 d-grid">
-            <button class="btn btn-danger">Sign Out</button>
+            <a class="btn btn-danger" href="{% url 'signout' %}">Sign Out</a>
         </div>
     </div>
 {% endblock mainBody %}
