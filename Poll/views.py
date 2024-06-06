@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from .models import Option, Poll
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url="signin")
 def createPoll(request: HttpRequest):
     if request.method == "GET":
         #print(request.get_full_path())
@@ -38,6 +40,7 @@ def results(request: HttpRequest, uuid=None):
 def vewPoll(request: HttpRequest, uuid=None):
     return HttpResponse(f"Poll of '{uuid}'")  
 
+@login_required(login_url="signin")
 def pollPost(request: HttpRequest):
     if request.method == "POST":
         uuid = request.POST.get("uuid")

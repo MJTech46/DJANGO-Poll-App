@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'Account/src/sign-in-or-up.css' %}">
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- font awesome 5.15.4 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="m-5">
+        <div class="p-5 bg-white bg-opacity-25 rounded-3">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="text-center">
+                    <h2>Sign Up</h2>
+                </div>
+                <div class="mt-1">
+                    <label for="username" class="col-form-label-lg">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="far fa-user-circle fa-2x"></i></span>
+                        <input type="text" name="username" id="username" class="form-control form-control-lg" placeholder="user123" required>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <label for="firstname" class="col-form-label-lg">First name</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-font fa-2x"></i></span>
+                        <input type="text" name="firstname" id="firstname" class="form-control form-control-lg" placeholder="John" required>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <label for="lastname" class="col-form-label-lg">Last name</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-font fa-2x"></i></i></span>
+                        <input type="text" name="lastname" id="lastname" class="form-control form-control-lg" placeholder="Wick" required>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <label for="password" class="col-form-label-lg">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa fa-lock fa-2x"></i></span>
+                        <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="*******" required>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <label for="cfmpassword" class="col-form-label-lg">Conform Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa fa-lock fa-2x"></i></span>
+                        <input type="password" name="cfmpassword" id="cfmpassword" class="form-control form-control-lg" placeholder="*******" required>
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                    <button type="submit" class="btn btn-lg col-12 btn-primary">Join</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

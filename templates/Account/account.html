@@ -21,8 +21,13 @@
                 {% endif %}
                 <div>
                     {% if User.username %}
-                        <h1>{{ User.first_name }} {{ User.last_name }}</h1>
-                        <h4>@{{ User.username }}</h4>
+                        {% if User.first_name %}
+                            <h1>{{ User.first_name }} {{ User.last_name }}</h1>
+                            <h4>@{{ User.username }}</h4>
+                        {% else %}
+                            <h1>No name</h1>
+                            <h4>@{{ User.username }}</h4>
+                        {% endif %}
                     {% else %}<!--  this is for testing only -->
                         <h1>Full Name</h1>
                         <h4>@username</h4>
@@ -45,6 +50,15 @@
         <div class="container pt-3">
             <h4>Actions:</h4>
             <div class="d-flex align-content-between flex-wrap gap-4 gap-lg-5 pt-2">
+                <!-- change profile icon -->
+                <div>
+                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                        <img src="{% static 'Account/images/change-user.png' %}" alt="change-user" height="40" width="40">
+                        <div class="align-content-center">
+                            <h4 class="text-success-emphasis">Change Profile Icon</h4>
+                        </div>
+                    </a>
+                </div>
                 <!-- icon 1 -->
                 <div>
                     <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
