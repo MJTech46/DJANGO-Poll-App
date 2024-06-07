@@ -35,7 +35,7 @@
                     <div class="pt-3 pb-3">
                         {% for option in poll.options.all %}
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioBtn" id="flexRadioDefault{{ option.pk }}" value="{{ option.pk }}" required>
+                                <input class="form-check-input" type="radio" name="RadioBtn" id="flexRadioDefault{{ option.pk }}" value="{{ option.uuid }}" required>
                                 <label class="form-check-label" for="flexRadioDefault{{ option.pk }}">
                                     {{ option.option_text }}
                                 </label>

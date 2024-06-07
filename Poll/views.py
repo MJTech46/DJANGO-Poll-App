@@ -43,7 +43,7 @@ def vewPoll(request: HttpRequest, uuid=None):
 @login_required(login_url="signin")
 def pollPost(request: HttpRequest):
     if request.method == "POST":
-        uuid = request.POST.get("uuid")
-        radioBtn = request.POST.get("RadioBtn")
-        print(f"uuid:{uuid}\noption pk:{radioBtn}")
+        poll_uuid = request.POST.get("uuid")
+        option_uuid = request.POST.get("RadioBtn")
+        print(f"Poll uuid:{poll_uuid}\nOption uuid:{option_uuid}")
         return JsonResponse({'status':200})

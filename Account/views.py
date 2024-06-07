@@ -5,13 +5,18 @@ from django.contrib.auth.decorators import login_required
 from .models import CustomUser
 from django.contrib.auth.hashers import make_password
 from django.core.files.base import ContentFile
+from Poll.models import Poll
 
 # Create your views here.
 @login_required(login_url="signin")
 def manage_account(request):
+    posted_count=Poll.objects.filter(pub_user=request.user.pk).count()
+    voted_count=Poll.objects.filter(options__polled_users=request.user.pk).distinct().count()
     context={
         'request' : request,
         'User' : request.user,
+        'posted_count':posted_count,
+        'voted_count':voted_count,
     }
     return render(request, "Account/account.html", context=context)
 
