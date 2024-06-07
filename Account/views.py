@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser
 from django.contrib.auth.hashers import make_password
+from django.core.files.base import ContentFile
 
 # Create your views here.
 @login_required(login_url="signin")
@@ -53,3 +54,24 @@ def sign_up(request: HttpRequest):
             return redirect("signin")
         else:
             return render(request,"Account/signup.html")
+
+@login_required(login_url="signin")        
+def delete_account(request: HttpRequest):
+    user=CustomUser.objects.get(pk=request.user.pk)
+    user.delete()
+    auth_logout(request)
+    return redirect("signin") 
+
+@login_required(login_url="signin")
+def change_icon(request: HttpRequest):
+    if request.method == "GET":
+        return render(request, "Account/changeIcon.html",{"User":request.user})
+    if request.method == "POST":
+        user=CustomUser.objects.get(pk=request.user.pk)
+        image_file=request.FILES.get("uploadedicon")
+        if image_file:
+            user.icon.delete()                
+            user.icon.save(image_file.name, ContentFile(image_file.read()))
+            user.save()
+        return redirect("account")
+    

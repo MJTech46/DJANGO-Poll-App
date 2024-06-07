@@ -52,7 +52,7 @@
             <div class="d-flex align-content-between flex-wrap gap-4 gap-lg-5 pt-2">
                 <!-- change profile icon -->
                 <div>
-                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                    <a href="{% url 'changeIcon' %}" class=" d-flex justify-content-center gap-1 text-decoration-none">
                         <img src="{% static 'Account/images/change-user.png' %}" alt="change-user" height="40" width="40">
                         <div class="align-content-center">
                             <h4 class="text-success-emphasis">Change Profile Icon</h4>
@@ -97,7 +97,7 @@
                 </div>
                 <!-- icon 5 -->
                 <div>
-                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                    <a onclick="return showWarning()" href="{% url 'delacc' %}" class=" d-flex justify-content-center gap-1 text-decoration-none">
                         <img src="{% static 'Account/images/trash-can.png' %}" alt="trash-can" height="40" width="40">
                         <div class="align-content-center">
                             <h4 class="text-danger-emphasis">Delete account</h4>
@@ -123,3 +123,11 @@
         </div>
     </div>
 {% endblock mainBody %}
+
+{% block script %}
+    <script>
+        function showWarning() {
+            return confirm("You are about to Delete your Account. Are you sure?")
+        }
+    </script>
+{% endblock script %}
