@@ -43,7 +43,20 @@ def vewPoll(request: HttpRequest, uuid=None):
 @login_required(login_url="signin")
 def pollPost(request: HttpRequest):
     if request.method == "POST":
+        #getting data from POST
         poll_uuid = request.POST.get("uuid")
         option_uuid = request.POST.get("RadioBtn")
         print(f"Poll uuid:{poll_uuid}\nOption uuid:{option_uuid}")
+        #making obj
+        POST_poll=Poll.objects.get(uuid=poll_uuid)
+        POST_option=Option.objects.get(uuid=option_uuid)
+        #checking if user previouly voted on this Poll before
+        has_voted=Option.objects.filter(poll=POST_poll, polled_users=request.user.pk)
+        print(has_voted)
+        if has_voted:
+            #removing the old vote and repalcing with new vote
+            option=has_voted[0]
+            option.polled_users.remove(request.user.pk)
+        #else adding the user to the option
+        POST_option.polled_users.add(request.user)
         return JsonResponse({'status':200})

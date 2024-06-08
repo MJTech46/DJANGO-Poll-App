@@ -61,7 +61,7 @@
                 </div>
                 <!-- icon 1 -->
                 <div>
-                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                    <a href="{% url 'postedPolls' %}" class=" d-flex justify-content-center gap-1 text-decoration-none">
                         <img src="{% static 'Account/images/eye.png' %}" alt="eye" height="40" width="40">
                         <div class="align-content-center">
                             <h4 class="text-primary-emphasis">View created polls</h4>
@@ -70,7 +70,7 @@
                 </div>
                 <!-- icon 2 -->
                 <div>
-                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
+                    <a href="{% url 'votedPolls' %}" class=" d-flex justify-content-center gap-1 text-decoration-none">
                         <img src="{% static 'Account/images/eye.png' %}" alt="eye" height="40" width="40">
                         <div class="align-content-center">
                             <h4 class="text-primary-emphasis">View voted polls</h4>
@@ -78,24 +78,6 @@
                     </a>
                 </div>
                 <!-- icon 3 -->
-                <div>
-                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
-                        <img src="{% static 'Account/images/undo.png' %}" alt="undo" height="40" width="40">
-                        <div class="align-content-center">
-                            <h4 class="text-warning-emphasis">Undo polls participation</h4>
-                        </div>
-                    </a>
-                </div>
-                <!-- icon 4 -->
-                <div>
-                    <a href="" class=" d-flex justify-content-center gap-1 text-decoration-none">
-                        <img src="{% static 'Account/images/trash-can.png' %}" alt="trash-can" height="40" width="40">
-                        <div class="align-content-center">
-                            <h4 class="text-danger-emphasis">Delete posted poll</h4>
-                        </div>
-                    </a>
-                </div>
-                <!-- icon 5 -->
                 <div>
                     <a onclick="return showWarning()" href="{% url 'delacc' %}" class=" d-flex justify-content-center gap-1 text-decoration-none">
                         <img src="{% static 'Account/images/trash-can.png' %}" alt="trash-can" height="40" width="40">
@@ -105,7 +87,7 @@
                     </a>
                 </div>
                 {% if User.is_superuser %}
-                    <!-- icon 6 -->
+                    <!-- icon 4 -->
                     <div>
                         <a href="/admin/" class=" d-flex justify-content-center gap-1 text-decoration-none">
                             <img src="{% static 'Account/images/key.png' %}" alt="key" height="40" width="40">

@@ -35,7 +35,11 @@
                     <div class="pt-3 pb-3">
                         {% for option in poll.options.all %}
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="RadioBtn" id="flexRadioDefault{{ option.pk }}" value="{{ option.uuid }}" required>
+                                {% if option in voted_options %}
+                                    <input class="form-check-input" type="radio" name="RadioBtn" id="flexRadioDefault{{ option.pk }}" value="{{ option.uuid }}" checked>
+                                {% else %}
+                                    <input class="form-check-input" type="radio" name="RadioBtn" id="flexRadioDefault{{ option.pk }}" value="{{ option.uuid }}" required>
+                                {% endif %}
                                 <label class="form-check-label" for="flexRadioDefault{{ option.pk }}">
                                     {{ option.option_text }}
                                 </label>
@@ -62,18 +66,51 @@
             </div>
         {% endfor %}
     </div>
-    {% if polls %}
-        <div class="container">
-            <div class="alert alert-info text-center" role="alert">
-                It seems like you've reached the end. <a href="{% url 'home'  %}" class="alert-link">Click here</a> to refresh this page
-            </div>
-        </div>
+    {% if request.get_full_path == "/" %}
+            <!-- only for 'home' -->
+            {% if polls %}
+                <div class="container">
+                    <div class="alert alert-info text-center" role="alert">
+                        It seems like you've reached the end. <a href="{% url 'home'  %}" class="alert-link">Click here</a> to refresh this page
+                    </div>
+                </div>
+            {% else %}
+                <div class="container">
+                    <div class="alert alert-info text-center" role="alert">
+                        You have responded to all current polls. <a href="{% url 'createPoll'  %}" class="alert-link">Click here</a> to contribute your own post.
+                    </div>
+                </div>
+            {% endif %}
+    {% elif request.get_full_path == "/voted-polls" %}
+            <!-- only for 'voted-polls' -->
+            {% if polls %}
+                <div class="container">
+                    <div class="alert alert-info text-center" role="alert">
+                        It seems like you've reached the end. <a href="{% url 'home'  %}" class="alert-link">Click here</a> to participate in many more post.
+                    </div>
+                </div>
+            {% else %}
+                <div class="container">
+                    <div class="alert alert-info text-center" role="alert">
+                        You have not voted in any poll yet. <a href="{% url 'home'  %}" class="alert-link">Click here</a> to participate in polls.
+                    </div>
+                </div>
+            {% endif %}
     {% else %}
-        <div class="container">
-            <div class="alert alert-info text-center" role="alert">
-                You have responded to all current polls. <a href="{% url 'createPoll'  %}" class="alert-link">Click here</a> to contribute your own post.
-            </div>
-        </div>
+            <!-- only for 'posted-polls' -->
+            {% if polls %}
+                <div class="container">
+                    <div class="alert alert-info text-center" role="alert">
+                        It seems like you've reached the end. <a href="{% url 'createPoll'  %}" class="alert-link">Click here</a> to contribute more post.
+                    </div>
+                </div>
+            {% else %}
+                <div class="container">
+                    <div class="alert alert-info text-center" role="alert">
+                        You have not posted any poll yet. <a href="{% url 'createPoll'  %}" class="alert-link">Click here</a> to contribute your own post.
+                    </div>
+                </div>
+            {% endif %}
     {% endif %}
 {% endblock mainBody %}
 
