@@ -1,7 +1,13 @@
 {% extends "account-base.html" %}
 {% load static %}
 
-{% block title %}Sign In | Poll App{% endblock title %}
+{% block title %}
+    {% if title %}
+        {{title}} | Poll App
+    {% else %}
+        Sign In | Poll App
+    {% endif %}
+{% endblock title %}
 
 {% block body %}
     <style>
@@ -14,7 +20,11 @@
             <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="text-center">
-                    <h2>Sign In</h2>
+                    {% if title %}
+                        <h2>{{title}}</h2>
+                    {% else %}
+                        <h2>Sign In</h2>
+                    {% endif %}
                 </div>
                 <div class="mt-1">
                     <label for="username" class="col-form-label-lg">Username</label>
@@ -30,25 +40,35 @@
                         <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="*******" required>
                     </div>
                 </div>
-                <div class="mt-3 text-center">
-                    <button type="submit" class="btn btn-lg col-12 btn-primary">Login</button>
-                </div>
-                <div class="d-flex justify-content-between mt-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="checkbox" id="checkbox">
-                        <label class="form-check-label" for="checkbox">
-                        Remember me
-                        </label>
+                {% if not title %}
+                    <div class="mt-3 text-center">
+                        <button type="submit" class="btn btn-lg col-12 btn-primary">Login</button>
                     </div>
-                    <div>
-                        <a href="#" class="text-decoration-none"> Forgot password?</a>
+                {% else %}
+                    <div class="mt-3 text-center">
+                        <button type="submit" class="btn btn-lg col-12 btn-danger">Delete Account</button>
                     </div>
-                </div>
+                {% endif %}
+                {% if not title %}
+                    <div class="d-flex justify-content-between mt-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="checkbox" id="checkbox">
+                            <label class="form-check-label" for="checkbox">
+                            Remember me
+                            </label>
+                        </div>
+                        <div>
+                            <a href="#" class="text-decoration-none"> Forgot password?</a>
+                        </div>
+                    </div>
+                {% endif %}
             </form>
         </div>
         <div class="mt-5 border border-1"></div>
-        <div class="mt-1 text-center">
-            Don't have a account?<a href="{% url 'signup' %}" class="text-decoration-none">Register here</a>
-        </div>
+        {% if not title %}
+            <div class="mt-1 text-center">
+                Don't have a account?<a href="{% url 'signup' %}" class="text-decoration-none">Register here</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock body %}

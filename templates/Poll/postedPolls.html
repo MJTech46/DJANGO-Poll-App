@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} Posted Polls | Poll App {% endblock title %}
+
+{% block body %}
+    {% include "navbar.html" %}
+{% endblock body %}
+
+{% block mainBody %}
+    <!-- main body starts here -->
+    <div class="container border-1 border-end border-start">
+        {% for poll in polls %}
+            <form action="{% url 'deletePoll' %}" method="post" enctype="multipart/form-data" id="form-{{ poll.uuid }}">
+                {% csrf_token %}
+                <input type="hidden" name="uuid" value="{{ poll.uuid }}">
+                <div class="container border border-5 rounded-2 mb-5">
+                <!-- head of feed -->
+                    <div class="container icons d-flex border rounded-5 mt-1">
+                        <a href="#user">
+                            {% if poll.pub_user.icon %}
+                                <img src="/media/{{ poll.pub_user.icon }}" alt="userAccount">
+                            {% else %}
+                                <img src="{% static 'Feed/images/defaultUser.png' %}" alt="userAccount">
+                            {% endif %}
+                        </a>
+                        <h3>@{{ poll.pub_user.username }}</h3>
+                    </div>
+                    <!-- body of feed -->
+                    <div class="container">
+                        <!-- Question part -->
+                        <h4 class="pt-2">{{ poll.poll_text }}</h4>
+                        <!-- Poll part -->
+                        <div class="pt-3 pb-3">
+                            {% for option in poll.options.all %}
+                                <div class="d-flex gap-2">
+                                    <span><i class="far fa-dot-circle"></i></span>
+                                    <h6>{{ option.option_text }}</h6>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex pb-4 justify-content-evenly gap-2">
+                            <button type="button" onclick="confirmSubmission('form-{{ poll.uuid }}')" class="btn btn-danger col-5 ">
+                                <span><i class="far fa-trash-alt"></i></span>
+                                Delete
+                            </button>
+                            <a href="{% url 'pollResultsURL' %}{{ poll.uuid }}" type="button" class="btn btn-secondary col-auto col-lg-2">
+                                <span><i class="fas fa-poll-h"></i></span>
+                                Results
+                            </a>
+                            <button type="button" onclick="shareLink('{{ poll.poll_text }}', `{% url 'viewPollURL' %}{{ poll.uuid }}`)" class="btn btn-secondary col-auto col-lg-2">
+                                <span><i class="fas fa-share"></i></span>
+                                Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {% endfor %}
+        {% if polls %}
+            <div class="container">
+                <div class="alert alert-info text-center" role="alert">
+                    It seems like you've reached the end. <a href="{% url 'createPoll'  %}" class="alert-link">Click here</a> to contribute more post.
+                </div>
+            </div>
+        {% else %}
+            <div class="container">
+                <div class="alert alert-info text-center" role="alert">
+                    You have not posted any poll yet. <a href="{% url 'createPoll'  %}" class="alert-link">Click here</a> to contribute a post.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock mainBody %}
+
+{% block script %}
+    <script>
+        function confirmSubmission(id) {
+            const confirmation = confirm("Are you sure you want to delete this poll?");
+            if (confirmation) {
+                // User clicked "OK," proceed with form submission
+                document.getElementById(id).submit();
+            } 
+        }
+    </script>
+{% endblock script %}

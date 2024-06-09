@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} Result | Poll App {% endblock title %}
+
+{% block body %}
+    {% include "navbar.html" %}
+{% endblock body %}
+
+{% block mainBody %}
+
+    <!-- main body starts here -->
+    <div class="container border-1 border-end border-start">
+        {% for poll in polls %}
+            <div class="container border border-5 rounded-2 mb-5">
+            <!-- head of feed -->
+                <div class="container icons d-flex border rounded-5 mt-1">
+                    <a href="#user">
+                        {% if poll.pub_user.icon %}
+                            <img src="/media/{{ poll.pub_user.icon }}" alt="userAccount">
+                        {% else %}
+                            <img src="{% static 'Feed/images/defaultUser.png' %}" alt="userAccount">
+                        {% endif %}
+                    </a>
+                    <h3>@{{ poll.pub_user.username }}</h3>
+                </div>
+                <!-- body of feed -->
+                <div class="container">
+                    <!-- Question part -->
+                    <h4 class="pt-2">{{ poll.poll_text }}</h4>
+                    <!-- Poll part -->
+                    <div class="pt-3 pb-3 ">
+                        {% for option, percentage in options %}
+                            <div class="progress mt-2" role="progressbar" aria-label="{{ option.uuid }}" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100" style="height: 25px;">
+                                <div class="progress-bar overflow-visible" style="color: inherit; width: {{ percentage }}%;"><h6>{{ option.option_text }}</h6></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="d-flex pb-4 justify-content-evenly gap-2">
+                        <button type="button" onclick="shareLink('{{ poll.poll_text }}', `{% url 'viewPollURL' %}{{ poll.uuid }}`)" class="btn btn-secondary col-auto col-lg-2">
+                            <span><i class="fas fa-share"></i></span>
+                            Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock mainBody %}

@@ -26,4 +26,7 @@ urlpatterns = [
     path('results/',views.results, name="pollResultsURL"),     #for url tag to work
     path('results/<str:uuid>',views.results, name="pollResults"),
     path('post/',views.pollPost, name="pollPost"),
+    path('posted-polls/',views.postedPolls, name="postedPolls"),
+    path('voted-polls/',views.votedPolls, name="votedPolls"),
+    path('delete-poll/',views.delPoll, name="deletePoll"),
 ]

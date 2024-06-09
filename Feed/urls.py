@@ -21,6 +21,4 @@ from . import views
 
 urlpatterns = [
     path('',views.home, name="home"),
-    path('posted-polls',views.postedPolls, name="postedPolls"),
-    path('voted-polls',views.votedPolls, name="votedPolls"),
 ]

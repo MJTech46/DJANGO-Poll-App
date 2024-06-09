@@ -35,7 +35,27 @@ def createPoll(request: HttpRequest):
         return redirect('createPoll')
 
 def results(request: HttpRequest, uuid=None):
-    return HttpResponse(f"Results of '{uuid}'")
+    poll=Poll.objects.get(uuid=uuid)
+    options=poll.options.all()
+    total_vote=0
+    percentages=[]
+    #for finding total vote
+    for option in options:
+        total_vote+=option.polled_users.count()
+    #for finding each percentage for each option
+    for option in options:
+        try:
+            result=(option.polled_users.count()/total_vote)*100
+        except ZeroDivisionError:
+            result=0
+        percentages.append(result)
+    context={
+            'request' : request,
+            'User' : request.user,
+            'polls': [poll],
+            'options': zip(options,percentages)
+        }
+    return render(request, "Poll/pollResult.html", context=context)
 
 def vewPoll(request: HttpRequest, uuid=None):
     return HttpResponse(f"Poll of '{uuid}'")  
@@ -60,3 +80,33 @@ def pollPost(request: HttpRequest):
         #else adding the user to the option
         POST_option.polled_users.add(request.user)
         return JsonResponse({'status':200})
+
+@login_required(login_url="signin")
+def postedPolls(request):
+    posted_polls=Poll.objects.filter(pub_user=request.user.pk)
+    context={
+        'request' : request,
+        'User' : request.user,
+        'polls' : posted_polls,
+    }
+    return render(request, "Poll/postedPolls.html", context=context)
+
+@login_required(login_url="signin")
+def votedPolls(request):
+    voted_options=Option.objects.filter(polled_users=request.user.pk)
+    voted_polls=Poll.objects.filter(options__in=voted_options)
+    context={
+        'request' : request,
+        'User' : request.user,
+        'polls' : voted_polls,
+        'voted_options' : voted_options,
+    }
+    return render(request,'Feed/home.html', context=context)
+
+@login_required(login_url="signin")
+def delPoll(request: HttpRequest):
+    if request.method == "POST":
+        poll=Poll.objects.get(uuid=request.POST.get("uuid"))
+        if poll.pub_user.pk == request.user.pk:
+            poll.delete()
+    return redirect("postedPolls")

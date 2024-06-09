@@ -62,10 +62,22 @@ def sign_up(request: HttpRequest):
 
 @login_required(login_url="signin")        
 def delete_account(request: HttpRequest):
-    user=CustomUser.objects.get(pk=request.user.pk)
-    user.delete()
-    auth_logout(request)
-    return redirect("signin") 
+    if request.method == "GET":
+        context={
+            'title': "Conform Deletion"
+        }
+        return render(request,"Account/signin.html", context=context)
+    if request.method == "POST":
+        username=request.POST.get("username")
+        password=request.POST.get("password")
+        if authenticate(username=username, password=password):
+            user=CustomUser.objects.get(pk=request.user.pk)
+            auth_logout(request)
+            user.delete()
+            return redirect("signin")
+        else:
+            return redirect("delacc")
+
 
 @login_required(login_url="signin")
 def change_icon(request: HttpRequest):
