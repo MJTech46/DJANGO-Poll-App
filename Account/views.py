@@ -32,7 +32,7 @@ def sign_in(request: HttpRequest):
         username=request.POST.get("username")
         password=request.POST.get("password")
         user= authenticate(username=username, password=password)
-        print(username,password,user)
+        #print(username,password,user)
         if user:
             auth_login(request, user)
             return redirect('home')

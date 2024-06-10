@@ -25,5 +25,5 @@ urlpatterns = [
     path('signin',views.sign_in, name="signin"),
     path('signup',views.sign_up, name="signup"),
     path('account-deletion',views.delete_account, name="delacc"),
-    path('changeIcon',views.change_icon, name="changeIcon"),
+    path('change-Icon',views.change_icon, name="changeIcon"),
 ]

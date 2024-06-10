@@ -58,7 +58,22 @@ def results(request: HttpRequest, uuid=None):
     return render(request, "Poll/pollResult.html", context=context)
 
 def vewPoll(request: HttpRequest, uuid=None):
-    return HttpResponse(f"Poll of '{uuid}'")  
+    #getting poll object from uuid
+    poll=Poll.objects.get(uuid=uuid)
+    #getting all options associated with that uuid poll in the form of list/array
+    options=list(Option.objects.filter(poll=poll))
+    #this list is for triggering the 'checked' attribute in the html
+    voted_options=[]
+    for option in options:
+        if request.user in option.polled_users.all():
+            voted_options.append(option)
+    context={
+        'request' : request,
+        'User' : request.user,
+        'polls' : [poll],
+        'voted_options' : voted_options,
+    }
+    return render(request,'Feed/home.html', context=context)
 
 @login_required(login_url="signin")
 def pollPost(request: HttpRequest):
@@ -66,13 +81,13 @@ def pollPost(request: HttpRequest):
         #getting data from POST
         poll_uuid = request.POST.get("uuid")
         option_uuid = request.POST.get("RadioBtn")
-        print(f"Poll uuid:{poll_uuid}\nOption uuid:{option_uuid}")
+        #print(f"Poll uuid:{poll_uuid}\nOption uuid:{option_uuid}")
         #making obj
         POST_poll=Poll.objects.get(uuid=poll_uuid)
         POST_option=Option.objects.get(uuid=option_uuid)
         #checking if user previouly voted on this Poll before
         has_voted=Option.objects.filter(poll=POST_poll, polled_users=request.user.pk)
-        print(has_voted)
+        #print(has_voted)
         if has_voted:
             #removing the old vote and repalcing with new vote
             option=has_voted[0]
