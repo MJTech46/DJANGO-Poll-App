@@ -91,4 +91,16 @@ def change_icon(request: HttpRequest):
             user.icon.save(image_file.name, ContentFile(image_file.read()))
             user.save()
         return redirect("account")
-    
+
+def view_account(request, pk=None):
+    view_user=CustomUser.objects.get(pk=pk)
+    posted_count=Poll.objects.filter(pub_user=view_user.pk).count()
+    voted_count=Poll.objects.filter(options__polled_users=view_user.pk).distinct().count()
+    context={
+        'request' : request,
+        'User' : request.user,
+        'posted_count':posted_count,
+        'voted_count':voted_count,
+        'view_user':view_user,
+    }
+    return render(request, "Account/view-account.html", context=context)

@@ -1,40 +1,55 @@
 {% load static %}
 <!-- nav bar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home'  %}">
-        <img src="{% static 'Feed/images/pollicon.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-        Poll App</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home'  %}">
+      <img src="{% static 'Feed/images/pollicon.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      Poll App
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarText">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Poll App</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body align-items-center justify-content-between">
         <!-- <a> hyperlinks -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            {% if request.get_full_path == '/' %}
-              <a class="nav-link active" aria-current="page" href="{% url 'home'  %}">Home</a>
-            {% else %}
-              <a class="nav-link" aria-current="page" href="{% url 'home'  %}">Home</a>
-            {% endif %}
-          </li>
-          <li class="nav-item">
-            {% if request.get_full_path == '/Poll/createPoll/' %}
-              <a class="nav-link active" href="{% url 'createPoll'  %}">Create Poll</a>
-            {% else %}
-              <a class="nav-link" aria-current="page" href="{% url 'createPoll'  %}">Create Poll</a>
-            {% endif %}
-          </li>
-        </ul>
+        <div>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              {% if request.get_full_path == '/' %}
+                <a class="nav-link active" aria-current="page" href="{% url 'home'  %}">Home</a>
+              {% else %}
+                <a class="nav-link" aria-current="page" href="{% url 'home'  %}">Home</a>
+              {% endif %}
+            </li>
+            <li class="nav-item">
+              {% if request.get_full_path == '/Poll/create-Poll/' %}
+                <a class="nav-link active" href="{% url 'createPoll'  %}">Create Poll</a>
+              {% else %}
+                <a class="nav-link" aria-current="page" href="{% url 'createPoll'  %}">Create Poll</a>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
         <!-- search bar -->
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Enter a Poll link here" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form><!-- icons -->
-        <div class="icons nav-item d-flex">
+        <div class="navbar-nav">
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Enter a Poll link here" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+        <!-- icons -->
+        <div class="icons navbar-nav">
           <!-- mode icon -->
-          <button id="modeButton" class="nav-link" title="Toggle mode" type="button"><img src="{% static 'Feed/images/dayAndNight.png' %}" alt="dayORnight"></button>
+          <button id="modeButton" class="nav-link text-start" title="Toggle mode" type="button">
+            <div class="d-flex flex-column text-center">
+              <img src="{% static 'Feed/images/dayAndNight.png' %}" alt="dayORnight">
+            </div>
+          </button>
           <!-- account icon -->
           <a class="nav-link" href="{% url 'account'  %}" title="Manage account">
             {% if User.icon %}
@@ -46,4 +61,5 @@
         </div>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>

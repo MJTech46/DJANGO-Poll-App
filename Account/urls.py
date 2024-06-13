@@ -21,9 +21,11 @@ from . import views
 
 urlpatterns = [
     path('',views.manage_account, name="account"),
-    path('signout',views.sign_out, name="signout"),
-    path('signin',views.sign_in, name="signin"),
-    path('signup',views.sign_up, name="signup"),
-    path('account-deletion',views.delete_account, name="delacc"),
-    path('change-Icon',views.change_icon, name="changeIcon"),
+    path('signout/',views.sign_out, name="signout"),
+    path('signin/',views.sign_in, name="signin"),
+    path('signup/',views.sign_up, name="signup"),
+    path('account-deletion/',views.delete_account, name="delacc"),
+    path('change-Icon/',views.change_icon, name="changeIcon"),
+    path('view-account/',views.view_account, name="viewAccountURL"),           #for url tag to work
+    path('view-account/<int:pk>',views.view_account, name="viewAccount"),
 ]

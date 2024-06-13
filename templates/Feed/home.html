@@ -15,7 +15,7 @@
             <div class="container border border-5 rounded-2 mb-5">
             <!-- head of feed -->
                 <div class="container icons d-flex border rounded-5 mt-1">
-                    <a href="#user">
+                    <a href="{% url 'viewAccountURL' %}{{ poll.pub_user.pk }}">
                         {% if poll.pub_user.icon %}
                             <img src="/media/{{ poll.pub_user.icon }}" alt="userAccount">
                         {% else %}

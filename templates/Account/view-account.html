@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}View Account | Poll App{% endblock title %}
+
+{% block body %}
+    {% include "navbar.html" %}
+{% endblock body %}
+
+{% block mainBody %}
+    <!-- main part -->
+    <div class="container p-5 border border-2 rounded-3">
+        <!-- name and icon div -->
+        <div class="container">
+            <div class="container d-flex justify-content-center gap-4">
+                {% if view_user.icon %}
+                <img src="/media/{{ view_user.icon }}" alt="account" height="100" width="100">
+                {% else %}
+                <img src="{% static 'Feed/images/defaultUser.png' %}" alt="account" height="100" width="100">
+                {% endif %}
+                <div>
+                    {% if view_user.username %}
+                        {% if view_user.first_name %}
+                            <h1>{{ view_user.first_name }} {{ view_user.last_name }}</h1>
+                            <h4>@{{ view_user.username }}</h4>
+                        {% else %}
+                            <h1>No name</h1>
+                            <h4>@{{ view_user.username }}</h4>
+                        {% endif %}
+                    {% else %}<!--  this is for testing only -->
+                        <h1>Full Name</h1>
+                        <h4>@username</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- statistics -->
+        <div class="container row border-bottom border-2 pt-5 text-center">
+            <div class="col border-end border-2">
+                <h4>Posted Polls</h4>
+                <h4>{{ posted_count }}</h4>
+            </div>
+            <div class="col">
+                <h4>Voted Polls</h4>
+                <h4>{{ voted_count }}</h4>
+            </div>
+        </div>
+        <!-- follow button -->
+        <div class="container pt-5 d-grid">
+            <a class="btn btn-primary" href="#now-following">Follow</a>
+        </div>
+    </div>
+{% endblock mainBody %}
