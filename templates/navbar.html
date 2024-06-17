@@ -37,8 +37,8 @@
         </div>
         <!-- search bar -->
         <div class="navbar-nav">
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Enter a Poll link here" aria-label="Search">
+          <form id="nav-form" class="d-flex" role="search" action="{% url 'home' %}" method="get">
+            <input id="search" name="search" class="form-control me-2" type="search" placeholder="Enter a Poll here" aria-label="Search" required>
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>

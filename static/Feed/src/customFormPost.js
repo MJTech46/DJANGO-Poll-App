@@ -34,7 +34,12 @@ function postForm(formId, url) {
 const allForms = document.querySelectorAll("form")
 allForms.forEach(function(form){
     form.addEventListener('submit', function(event) {
-        event.preventDefault();  // Prevent the default form submission
-        postForm(form.id, form.action);
+        if (form.id === "nav-form") {
+            console.log(form.id)
+            console.log('form ')
+        } else {
+            event.preventDefault();  // Prevent the default form submission
+            postForm(form.id, form.action);
+        }
     });
 });
